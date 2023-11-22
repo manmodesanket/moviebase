@@ -5,6 +5,11 @@
 :root {
 }
 
+.bm-burger-button {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
   }

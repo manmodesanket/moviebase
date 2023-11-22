@@ -1,5 +1,3 @@
-"use client";
-
 export default function Sidebar({}) {
   return (
     <div className="space-y-4 py-4">
