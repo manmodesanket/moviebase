@@ -10,6 +10,10 @@
   flex-direction: row-reverse;
 }
 
+#react-burger-menu-btn {
+  height: 20px !important;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
   }
