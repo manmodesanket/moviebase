@@ -3,12 +3,12 @@
 import { Input } from "@/components";
 import MovieList from "./movielist";
 import { Suspense, useState } from "react";
-import Loading from "./loading";
+import MoviesSkeleton from "./moviesSkeleton";
 
 export default function Search() {
   const [input, setInput] = useState("");
   return (
-    <div className="lg:pr-72 mt-4">
+    <div>
       <section>
         <Input
           className="lg:pr-4 mt-4"
@@ -19,7 +19,7 @@ export default function Search() {
         />
       </section>
       <section>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<MoviesSkeleton />}>
           <MovieList query={input} />
         </Suspense>
       </section>
