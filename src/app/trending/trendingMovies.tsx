@@ -1,7 +1,11 @@
 "use client";
-import Image from "next/image";
+
 import React from "react";
+import Image from "next/image";
 import useSWR from "swr";
+import { MoviesSkeleton } from "@/components";
+
+type trendingTimeType = "day" | "week";
 
 const options = {
   method: "GET",
@@ -43,31 +47,29 @@ const NoImagePlaceholder = () => {
   );
 };
 
-export default function MovieList({ query }: { query: string }) {
-  const { data, error } = useSWR(
-    query ? `https://api.themoviedb.org/3/search/movie?query=${query}` : null,
+export default function TrendingMovies({
+  period,
+}: {
+  period: trendingTimeType;
+}) {
+  const { data, error, isLoading } = useSWR(
+    `https://api.themoviedb.org/3/trending/movie/${period}`,
     fetcher,
-    { suspense: true },
   );
 
   return (
     <div className="mt-8">
       {error && <p className="text-center">Something went wrong!</p>}
-      {!error && !query && (
-        <p className="text-center">Search something to discover movies</p>
-      )}
-      {!error && query && !data && (
+      {isLoading && <MoviesSkeleton />}
+      {!error && !data && !isLoading && (
         <p className="text-center">
           Data not available that matches your query
         </p>
       )}
-      {!error && data && (
-        <React.Fragment>
-          <h2 className="ml-2 text-xl font-semibold tracking-tight">
-            Movie list
-          </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            {data.results.map((item: any) => (
+      {!error && data && !isLoading && (
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          {data.results &&
+            data.results.map((item: any) => (
               <article className="p-2" key={item.id}>
                 {item.poster_path ? (
                   <Image
@@ -83,8 +85,7 @@ export default function MovieList({ query }: { query: string }) {
                 <div className="font-semibold">{item.title}</div>
               </article>
             ))}
-          </div>
-        </React.Fragment>
+        </div>
       )}
     </div>
   );

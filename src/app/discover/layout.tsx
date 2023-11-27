@@ -10,7 +10,7 @@ export default function PageLayout({
       <nav className="lg:hidden">
         <HamburgerMenu pageWrapId="page-content" outerContainerId="page" />
       </nav>
-      <nav className="hidden lg:block  lg:col-span-2">
+      <nav className="hidden lg:block lg:col-span-2">
         <Sidebar />
       </nav>
       {children}
