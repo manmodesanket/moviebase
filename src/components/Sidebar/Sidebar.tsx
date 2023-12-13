@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import DiscoverIcon from "../discoverIcon";
+import TrendingIcon from "../trendingIcon";
 
 export default function Sidebar({}) {
   const pathname = usePathname();
@@ -13,31 +15,32 @@ export default function Sidebar({}) {
 
   return (
     <div className="space-y-4 py-4">
+      <h1 className="text-3xl font-bold tracking-tight text-center">
+        Moviebase
+      </h1>
       <div className="px-3 py-2">
         <div className="space-y-1 flex flex-col">
           <Link
-            className={`w-full ${
-              isCurrentPath("discover") ? "underline" : ""
-            } text-center`}
+            className={`flex items-center justify-start rounded-md p-2 w-full ${
+              isCurrentPath("discover") ? "bg-slate-200" : ""
+            } hover:bg-slate-200`}
             href="/discover"
           >
-            Discover
+            <span>
+              <DiscoverIcon />
+            </span>
+            <span className="ml-2">Discover</span>
           </Link>
           <Link
-            className={`w-full ${
-              isCurrentPath("trending") ? "underline" : ""
-            } text-center`}
+            className={`flex items-center justify-start rounded-md p-2 w-full ${
+              isCurrentPath("trending") ? "bg-slate-200" : ""
+            } hover:bg-slate-200`}
             href="/trending"
           >
-            Trending
-          </Link>
-          <Link
-            className={`w-full ${
-              isCurrentPath("upcoming") ? "underline" : ""
-            } text-center`}
-            href="/upcoming"
-          >
-            Upcoming
+            <span>
+              <TrendingIcon />
+            </span>
+            <span className="ml-2">Trending</span>
           </Link>
         </div>
       </div>

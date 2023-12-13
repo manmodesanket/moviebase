@@ -15,9 +15,9 @@ export default function Trending() {
       className="flex flex-col lg:p-24 p-4 lg:col-span-10"
     >
       <section className="flex justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h2 className="text-2xl font-semibold tracking-tight">
           Trending {trendingTime === "day" ? "today" : "this week"}
-        </h1>
+        </h2>
         <SelectTrendingPeriod
           period={trendingTime}
           setPeriod={setTrendingTime}
