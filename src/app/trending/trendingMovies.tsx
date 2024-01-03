@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import useSWR from "swr";
 import { MoviesSkeleton } from "@/components";
+import PaginationComponent from "@/components/pagination";
 
 type trendingTimeType = "day" | "week";
 
@@ -52,8 +53,9 @@ export default function TrendingMovies({
 }: {
   period: trendingTimeType;
 }) {
+  const [pageIndex, setPageIndex] = useState(1);
   const { data, error, isLoading } = useSWR(
-    `https://api.themoviedb.org/3/trending/movie/${period}`,
+    `https://api.themoviedb.org/3/trending/movie/${period}?page=${pageIndex}`,
     fetcher,
   );
 
@@ -67,24 +69,33 @@ export default function TrendingMovies({
         </p>
       )}
       {!error && data && !isLoading && (
-        <div className="grid grid-cols-2 lg:grid-cols-4">
-          {data.results &&
-            data.results.map((item: any) => (
-              <article className="p-2" key={item.id}>
-                {item.poster_path ? (
-                  <Image
-                    alt={item.title}
-                    className="overflow-hidden rounded-md"
-                    src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                    width={210}
-                    height={315}
-                  />
-                ) : (
-                  <NoImagePlaceholder />
-                )}
-                <div className="font-semibold">{item.title}</div>
-              </article>
-            ))}
+        <div>
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {data.results &&
+              data.results.map((item: any) => (
+                <article className="p-2" key={item.id}>
+                  {item.poster_path ? (
+                    <Image
+                      alt={item.title}
+                      className="overflow-hidden rounded-md"
+                      src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                      width={210}
+                      height={315}
+                    />
+                  ) : (
+                    <NoImagePlaceholder />
+                  )}
+                  <div className="font-semibold">{item.title}</div>
+                </article>
+              ))}
+          </div>
+          <div className="my-4">
+            <PaginationComponent
+              pages={data.total_pages <= 5 ? data.total_pages : 5}
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+            />
+          </div>
         </div>
       )}
     </div>

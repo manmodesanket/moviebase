@@ -6,7 +6,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/select";
+} from "@/components/shadcn-ui/select";
 import { Dispatch, SetStateAction } from "react";
 
 type trendingTimeType = "day" | "week";

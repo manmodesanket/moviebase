@@ -1,7 +1,6 @@
 "use client";
-import { Suspense, useState } from "react";
-import { MoviesSkeleton } from "@/components";
-import TrendingToday from "./trendingMovies";
+import { useState } from "react";
+import TrendingMovies from "./trendingMovies";
 import { SelectTrendingPeriod } from "./selectTrendingPeriod";
 
 type trendingTimeType = "day" | "week";
@@ -24,7 +23,7 @@ export default function Trending() {
         />
       </section>
       <section>
-        <TrendingToday period={trendingTime} />
+        <TrendingMovies period={trendingTime} />
       </section>
     </main>
   );

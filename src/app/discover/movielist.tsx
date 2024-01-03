@@ -1,6 +1,7 @@
 "use client";
+import PaginationComponent from "@/components/pagination";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 const options = {
@@ -16,7 +17,6 @@ const fetcher = (url: string) => {
   return fetch(url, options).then((res) => res.json());
 };
 
-// /giYuvpmpZbwkT3NtX4WdNYqGhxw.jpg
 const NoImagePlaceholder = () => {
   const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="215" height="330" role="img" aria-label="No Image Available">
@@ -44,11 +44,18 @@ const NoImagePlaceholder = () => {
 };
 
 export default function MovieList({ query }: { query: string }) {
+  const [pageIndex, setPageIndex] = useState(1);
   const { data, error } = useSWR(
-    query ? `https://api.themoviedb.org/3/search/movie?query=${query}` : null,
+    query
+      ? `https://api.themoviedb.org/3/search/movie?query=${query}&page=${pageIndex}`
+      : null,
     fetcher,
     { suspense: true },
   );
+
+  useEffect(() => {
+    setPageIndex(1);
+  }, [query]);
 
   return (
     <div className="mt-8">
@@ -62,7 +69,7 @@ export default function MovieList({ query }: { query: string }) {
         </p>
       )}
       {!error && data && (
-        <React.Fragment>
+        <div>
           <h2 className="ml-2 text-xl font-semibold tracking-tight">
             Movie list
           </h2>
@@ -84,7 +91,14 @@ export default function MovieList({ query }: { query: string }) {
               </article>
             ))}
           </div>
-        </React.Fragment>
+          <div className="my-4">
+            <PaginationComponent
+              pages={data.total_pages <= 5 ? data.total_pages : 5}
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
