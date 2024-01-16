@@ -5,6 +5,7 @@ import {
   TabsTrigger,
 } from "@/components/shadcn-ui/tabs";
 import Search from "./search";
+import DiscoverMoviesByFilter from "./filter";
 
 export default function Discover() {
   return (
@@ -22,7 +23,7 @@ export default function Discover() {
           <Search />
         </TabsContent>
         <TabsContent value="filters">
-          <p className="p-2">Discover movies using filters</p>
+          <DiscoverMoviesByFilter />
         </TabsContent>
       </Tabs>
     </div>

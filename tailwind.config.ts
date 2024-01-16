@@ -16,6 +16,8 @@ const config: Config = {
       colors: {
         background: "hsl(0 0% 100%)",
         muted: "hsl(240 4.8% 95.9%)",
+        primary: "hsl(240 5.9% 10%)",
+        textWhite: "hsl(0 0% 98%)",
       },
     },
   },

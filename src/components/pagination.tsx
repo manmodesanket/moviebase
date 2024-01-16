@@ -19,10 +19,12 @@ export default function PaginationComponent({
   pages,
   pageIndex,
   setPageIndex,
+  onPageChange,
 }: {
   pages: number;
   pageIndex: number;
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
+  onPageChange?: any;
 }) {
   const pagesList = createArrayWithLoop(pages);
 
@@ -35,6 +37,7 @@ export default function PaginationComponent({
               const newPage = pageIndex - 1;
               if (newPage > 0) {
                 setPageIndex(newPage);
+                if (onPageChange) onPageChange(newPage);
               }
             }}
           />
@@ -43,7 +46,10 @@ export default function PaginationComponent({
           <PaginationItem>
             <PaginationLink
               isActive={item === pageIndex ? true : false}
-              onClick={() => setPageIndex(item)}
+              onClick={() => {
+                setPageIndex(item);
+                if (onPageChange) onPageChange(item);
+              }}
             >
               {item}
             </PaginationLink>
@@ -53,9 +59,11 @@ export default function PaginationComponent({
           <PaginationNext
             onClick={() => {
               const newPage = pageIndex + 1;
-              console.log(newPage, pages);
+              console.log(newPage);
               if (newPage <= 10 && newPage <= pages) {
+                console.log("setting page", newPage, onPageChange);
                 setPageIndex(newPage);
+                if (onPageChange) onPageChange(newPage);
               }
             }}
           />

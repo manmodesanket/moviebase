@@ -17,7 +17,7 @@ export default function Search() {
         <Input
           className="lg:pr-4 mt-4"
           type="text"
-          placeholder="Search to discover"
+          placeholder="Find the movie you are looking for..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />

@@ -60,9 +60,6 @@ export default function MovieList({ query }: { query: string }) {
   return (
     <div className="mt-8">
       {error && <p className="text-center">Something went wrong!</p>}
-      {!error && !query && (
-        <p className="text-center">Search something to discover movies</p>
-      )}
       {!error && query && !data && (
         <p className="text-center">
           Data not available that matches your query
