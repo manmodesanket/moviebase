@@ -1,16 +1,9 @@
 "use client";
 import PaginationComponent from "@/components/pagination";
+import { options } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMBD_API_KEY}`,
-  },
-};
 
 const fetcher = (url: string) => {
   if (!url) return null;

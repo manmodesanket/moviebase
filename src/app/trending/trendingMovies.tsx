@@ -5,16 +5,9 @@ import Image from "next/image";
 import useSWR from "swr";
 import { MoviesSkeleton } from "@/components";
 import PaginationComponent from "@/components/pagination";
+import { options } from "@/lib/utils";
 
 type trendingTimeType = "day" | "week";
-
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMBD_API_KEY}`,
-  },
-};
 
 const fetcher = (url: string) => {
   if (!url) return null;

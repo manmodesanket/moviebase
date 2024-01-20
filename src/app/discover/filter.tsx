@@ -10,16 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn-ui/select";
+import { options } from "@/lib/utils";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
-
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMBD_API_KEY}`,
-  },
-};
 
 const NoImagePlaceholder = () => {
   const svgString = `
