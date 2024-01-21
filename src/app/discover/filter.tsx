@@ -1,6 +1,7 @@
 "use client";
 
 import { Input } from "@/components";
+import MovieCard from "@/components/moviecard";
 import PaginationComponent from "@/components/pagination";
 import { Button } from "@/components/shadcn-ui/button";
 import {
@@ -10,41 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn-ui/select";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/shadcn-ui/tooltip";
 import { options } from "@/lib/utils";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
-
-const NoImagePlaceholder = () => {
-  const svgString = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="215" height="330" role="img" aria-label="No Image Available">
-      <rect width="100%" height="100%" fill="transparent" />
-      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="14" fill="gray">
-        No Image
-      </text>
-    </svg>
-  `;
-
-  const encodedSvg = encodeURIComponent(svgString);
-  const dataUri = `data:image/svg+xml,${encodedSvg}`;
-
-  return (
-    <div className="">
-      <Image
-        className="bg-gray-200 rounded-md overflow-hidden "
-        src={dataUri}
-        alt="No Image Available"
-        width={210}
-        height={315}
-      />
-    </div>
-  );
-};
 
 export default function DiscoverMoviesByFilter() {
   const [rating, setRatings] = useState<number | null>(null);
@@ -196,29 +165,7 @@ export default function DiscoverMoviesByFilter() {
         <section className="mt-4 z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {data.results.map((item: any) => (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <article className="p-2" key={item.id}>
-                      {item.poster_path ? (
-                        <Image
-                          alt={item.title}
-                          className="overflow-hidden rounded-md"
-                          src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                          width={210}
-                          height={315}
-                        />
-                      ) : (
-                        <NoImagePlaceholder />
-                      )}
-                      <div className="font-semibold">{item.title}</div>
-                    </article>
-                  </TooltipTrigger>
-                  <TooltipContent className="bg-white">
-                    <p>Rated: {item.vote_average.toFixed(2)}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <MovieCard movieData={item} />
             ))}
           </div>
         </section>

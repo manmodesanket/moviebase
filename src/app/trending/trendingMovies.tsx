@@ -12,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/shadcn-ui/tooltip";
+import MovieCard from "@/components/moviecard";
 
 type trendingTimeType = "day" | "week";
 
@@ -71,31 +72,7 @@ export default function TrendingMovies({
         <div>
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {data.results &&
-              data.results.map((item: any) => (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <article className="p-2" key={item.id}>
-                        {item.poster_path ? (
-                          <Image
-                            alt={item.title}
-                            className="overflow-hidden rounded-md"
-                            src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                            width={210}
-                            height={315}
-                          />
-                        ) : (
-                          <NoImagePlaceholder />
-                        )}
-                        <div className="font-semibold">{item.title}</div>
-                      </article>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-white">
-                      <p>Rated: {item.vote_average.toFixed(2)}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              ))}
+              data.results.map((item: any) => <MovieCard movieData={item} />)}
           </div>
           <div className="my-4">
             <PaginationComponent
