@@ -111,7 +111,7 @@ export default function DiscoverMoviesByFilter() {
             <SelectTrigger className="w-[100px]">
               <SelectValue placeholder="Ratings" />
             </SelectTrigger>
-            <SelectContent className="opacity-100">
+            <SelectContent className="opacity-100 bg-white">
               {ratingsList.map((item) => (
                 <SelectItem
                   className="hover:bg-gray-100 "
@@ -134,7 +134,7 @@ export default function DiscoverMoviesByFilter() {
             <SelectTrigger className="w-[100px]">
               <SelectValue placeholder="Language" />
             </SelectTrigger>
-            <SelectContent className="opacity-100">
+            <SelectContent className="opacity-100 bg-white">
               {languages.map((item) => (
                 <SelectItem
                   className="hover:bg-gray-100 "
@@ -157,7 +157,7 @@ export default function DiscoverMoviesByFilter() {
             <SelectTrigger className="w-[100px]">
               <SelectValue placeholder="Genre" />
             </SelectTrigger>
-            <SelectContent className="opacity-100">
+            <SelectContent className="opacity-100 bg-white">
               {genres.map((item) => (
                 <SelectItem
                   className="hover:bg-gray-100 "

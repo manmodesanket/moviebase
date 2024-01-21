@@ -6,6 +6,12 @@ import useSWR from "swr";
 import { MoviesSkeleton } from "@/components";
 import PaginationComponent from "@/components/pagination";
 import { options } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/shadcn-ui/tooltip";
 
 type trendingTimeType = "day" | "week";
 
@@ -66,20 +72,29 @@ export default function TrendingMovies({
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {data.results &&
               data.results.map((item: any) => (
-                <article className="p-2" key={item.id}>
-                  {item.poster_path ? (
-                    <Image
-                      alt={item.title}
-                      className="overflow-hidden rounded-md"
-                      src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                      width={210}
-                      height={315}
-                    />
-                  ) : (
-                    <NoImagePlaceholder />
-                  )}
-                  <div className="font-semibold">{item.title}</div>
-                </article>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <article className="p-2" key={item.id}>
+                        {item.poster_path ? (
+                          <Image
+                            alt={item.title}
+                            className="overflow-hidden rounded-md"
+                            src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                            width={210}
+                            height={315}
+                          />
+                        ) : (
+                          <NoImagePlaceholder />
+                        )}
+                        <div className="font-semibold">{item.title}</div>
+                      </article>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-white">
+                      <p>Rated: {item.vote_average.toFixed(2)}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               ))}
           </div>
           <div className="my-4">
