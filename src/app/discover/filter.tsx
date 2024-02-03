@@ -1,8 +1,6 @@
 "use client";
 
-import { Input } from "@/components";
-import MovieCard from "@/components/moviecard";
-import PaginationComponent from "@/components/pagination";
+import { Input, MoviesSkeleton } from "@/components";
 import { Button } from "@/components/shadcn-ui/button";
 import {
   Select,
@@ -12,8 +10,8 @@ import {
   SelectValue,
 } from "@/components/shadcn-ui/select";
 import { options } from "@/lib/utils";
-import Image from "next/image";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Suspense, useEffect, useState } from "react";
+import MovieList from "./movielist";
 
 export default function DiscoverMoviesByFilter() {
   const [rating, setRatings] = useState<number | null>(null);
@@ -21,13 +19,11 @@ export default function DiscoverMoviesByFilter() {
   const [currentLang, setCurrentLang] = useState("");
   const [currentGenre, setCurrentGenre] = useState("");
 
-  const [data, setData] = useState<any>(null);
-
-  const [pageIndex, setPageIndex] = useState(1);
   const [languages, setLanguages] = useState<
     Array<{ iso_639_1: string; english_name: string; name: string }>
   >([]);
   const [genres, setGenres] = useState<Array<{ id: string; name: string }>>([]);
+  const [endpoint, setEndpoint] = useState("");
 
   const ratingsList = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 
@@ -39,8 +35,8 @@ export default function DiscoverMoviesByFilter() {
     }
   };
 
-  const handleSearch = async (newPage: number) => {
-    const endpoint = `https://api.themoviedb.org/3/discover/movie?vote_average.gte=${
+  const handleSearch = async () => {
+    const endpointUrl = `https://api.themoviedb.org/3/discover/movie?vote_average.gte=${
       rating || ""
     }&primary_release_date.gte=${
       year.length > 0 ? year.concat("-01-01") : ""
@@ -48,9 +44,8 @@ export default function DiscoverMoviesByFilter() {
       year.length > 0 ? year.concat("-12-31") : ""
     }&with_original_language=${currentLang || ""}&with_genres=${
       currentGenre || ""
-    }&page=${newPage}`;
-    const data = await fetch(endpoint, options).then((res) => res.json());
-    setData(data);
+    }`;
+    setEndpoint(endpointUrl);
   };
 
   const getLanguages = async () => {
@@ -75,7 +70,7 @@ export default function DiscoverMoviesByFilter() {
 
   return (
     <div className="mt-4">
-      <section className="flex flex-wrap">
+      <section className="flex flex-wrap gap-4">
         <div>
           <Select
             onValueChange={(value) => {
@@ -99,7 +94,7 @@ export default function DiscoverMoviesByFilter() {
             </SelectContent>
           </Select>
         </div>
-        <div className="ml-2">
+        <div>
           <Select
             onValueChange={(value) => {
               setCurrentLang(value);
@@ -122,7 +117,7 @@ export default function DiscoverMoviesByFilter() {
             </SelectContent>
           </Select>
         </div>
-        <div className="ml-2">
+        <div>
           <Select
             onValueChange={(value) => {
               setCurrentGenre(value);
@@ -147,41 +142,19 @@ export default function DiscoverMoviesByFilter() {
         </div>
         <Input
           onChange={handleInputChange}
-          className="ml-2 w-[100px]"
+          className="w-[100px]"
           placeholder="Year"
           value={year}
         />
-        <Button
-          className="ml-2 text-textWhite"
-          onClick={() => {
-            setPageIndex(1);
-            handleSearch(1);
-          }}
-        >
+        <Button className="text-textWhite" onClick={() => handleSearch()}>
           Search
         </Button>
       </section>
-      {data && (
-        <section className="mt-4 z-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            {data.results.map((item: any) => (
-              <MovieCard movieData={item} />
-            ))}
-          </div>
-        </section>
-      )}
-      {data && (
-        <section className="ml-2">
-          <div className="my-4">
-            <PaginationComponent
-              pages={data.total_pages <= 5 ? data.total_pages : 5}
-              pageIndex={pageIndex}
-              setPageIndex={setPageIndex}
-              onPageChange={handleSearch}
-            />
-          </div>
-        </section>
-      )}
+      <section className="mb-12">
+        <Suspense fallback={<MoviesSkeleton />}>
+          <MovieList query={endpoint} />
+        </Suspense>
+      </section>
     </div>
   );
 }

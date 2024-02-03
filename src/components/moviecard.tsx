@@ -52,7 +52,7 @@ export default function MovieCard({ movieData }: { movieData: any }) {
             <div className="font-semibold">{movieData.title}</div>
           </article>
         </TooltipTrigger>
-        <TooltipContent className="bg-white">
+        <TooltipContent className="bg-black text-white">
           <p>Rated: {movieData.vote_average.toFixed(2)}</p>
         </TooltipContent>
       </Tooltip>

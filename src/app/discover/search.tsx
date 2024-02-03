@@ -11,6 +11,10 @@ export default function Search() {
 
   const debouncedSearch = useDebounce(input, 1000);
 
+  const url = debouncedSearch
+    ? `https://api.themoviedb.org/3/search/movie?query=${debouncedSearch}`
+    : null;
+
   return (
     <div className="p-2 lg:p-0">
       <section>
@@ -24,7 +28,7 @@ export default function Search() {
       </section>
       <section>
         <Suspense fallback={<MoviesSkeleton />}>
-          <MovieList query={debouncedSearch} />
+          <MovieList query={url} />
         </Suspense>
       </section>
     </div>

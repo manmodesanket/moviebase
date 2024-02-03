@@ -9,7 +9,7 @@ import DiscoverMoviesByFilter from "./filter";
 
 export default function Discover() {
   return (
-    <div id="page-content" className="flex flex-col">
+    <div id="page-content" className="flex flex-col px-2 lg:px-0">
       <Tabs defaultValue="name" className="">
         <TabsList className="bg-muted w-[300px] mx-auto">
           <TabsTrigger className="w-[150px]" value="name">

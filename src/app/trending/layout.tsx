@@ -1,4 +1,5 @@
-import { HamburgerMenu, Sidebar } from "@/components";
+import { Sidebar } from "@/components";
+import NavMobile from "@/components/MobileMenu";
 
 export default function PageLayout({
   children,
@@ -8,12 +9,12 @@ export default function PageLayout({
   return (
     <div id="page" className="min-h-screen lg:grid lg:grid-cols-12">
       <nav className="lg:hidden">
-        <HamburgerMenu pageWrapId="page-content" outerContainerId="page" />
+        <NavMobile />
       </nav>
       <nav className="hidden lg:block lg:col-span-2 border-r border-slate-300">
         <Sidebar />
       </nav>
-      {children}
+      <main className="lg:px-12 lg:pt-20 pt-4 lg:col-span-10">{children}</main>
     </div>
   );
 }

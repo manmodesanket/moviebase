@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import DiscoverIcon from "../discoverIcon";
-import TrendingIcon from "../trendingIcon";
+import { Search } from "lucide-react";
+import { Flame } from "lucide-react";
 
 export default function Sidebar({}) {
   const pathname = usePathname();
@@ -27,7 +27,7 @@ export default function Sidebar({}) {
             href="/discover"
           >
             <span>
-              <DiscoverIcon />
+              <Search />
             </span>
             <span className="ml-2">Discover</span>
           </Link>
@@ -38,7 +38,7 @@ export default function Sidebar({}) {
             href="/trending"
           >
             <span>
-              <TrendingIcon />
+              <Flame />
             </span>
             <span className="ml-2">Trending</span>
           </Link>

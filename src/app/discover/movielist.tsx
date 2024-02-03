@@ -2,7 +2,6 @@
 import MovieCard from "@/components/moviecard";
 import PaginationComponent from "@/components/pagination";
 import { options } from "@/lib/utils";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
@@ -11,12 +10,10 @@ const fetcher = (url: string) => {
   return fetch(url, options).then((res) => res.json());
 };
 
-export default function MovieList({ query }: { query: string }) {
+export default function MovieList({ query }: { query: string | null }) {
   const [pageIndex, setPageIndex] = useState(1);
   const { data, error } = useSWR(
-    query
-      ? `https://api.themoviedb.org/3/search/movie?query=${query}&page=${pageIndex}`
-      : null,
+    query ? `${query}&page=${pageIndex}` : null,
     fetcher,
     { suspense: true },
   );
@@ -43,7 +40,7 @@ export default function MovieList({ query }: { query: string }) {
               <MovieCard movieData={item} />
             ))}
           </div>
-          <div className="my-4">
+          <div className="my-12">
             <PaginationComponent
               pages={data.total_pages <= 5 ? data.total_pages : 5}
               pageIndex={pageIndex}
