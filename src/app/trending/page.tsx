@@ -9,10 +9,7 @@ export default function Trending() {
   const [trendingTime, setTrendingTime] = useState<trendingTimeType>("day");
 
   return (
-    <main
-      id="page-content"
-      className="flex flex-col lg:p-24 p-4 lg:col-span-10"
-    >
+    <div className="px-2">
       <section className="flex justify-between">
         <h2 className="text-2xl font-semibold tracking-tight">
           Trending {trendingTime === "day" ? "today" : "this week"}
@@ -25,6 +22,6 @@ export default function Trending() {
       <section>
         <TrendingMovies period={trendingTime} />
       </section>
-    </main>
+    </div>
   );
 }

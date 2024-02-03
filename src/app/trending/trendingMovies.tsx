@@ -6,12 +6,6 @@ import useSWR from "swr";
 import { MoviesSkeleton } from "@/components";
 import PaginationComponent from "@/components/pagination";
 import { options } from "@/lib/utils";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/shadcn-ui/tooltip";
 import MovieCard from "@/components/moviecard";
 
 type trendingTimeType = "day" | "week";
@@ -60,7 +54,7 @@ export default function TrendingMovies({
   );
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 mb-12">
       {error && <p className="text-center">Something went wrong!</p>}
       {isLoading && <MoviesSkeleton />}
       {!error && !data && !isLoading && (
