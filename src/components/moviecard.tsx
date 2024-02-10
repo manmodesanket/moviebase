@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -37,20 +38,22 @@ export default function MovieCard({ movieData }: { movieData: any }) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <article className="p-2" key={movieData.id}>
-            {movieData.poster_path ? (
-              <Image
-                alt={movieData.title}
-                className="overflow-hidden rounded-md"
-                src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
-                width={210}
-                height={315}
-              />
-            ) : (
-              <NoImagePlaceholder />
-            )}
-            <div className="font-semibold">{movieData.title}</div>
-          </article>
+          <Link href={`/movie/${movieData.id}`} key={movieData.id}>
+            <article className="p-2">
+              {movieData.poster_path ? (
+                <Image
+                  alt={movieData.title}
+                  className="overflow-hidden rounded-md"
+                  src={`https://image.tmdb.org/t/p/original${movieData.poster_path}`}
+                  width={210}
+                  height={315}
+                />
+              ) : (
+                <NoImagePlaceholder />
+              )}
+              <div className="font-semibold">{movieData.title}</div>
+            </article>
+          </Link>
         </TooltipTrigger>
         <TooltipContent className="bg-black text-white">
           <p>Rated: {movieData.vote_average.toFixed(2)}</p>

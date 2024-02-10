@@ -43,7 +43,7 @@ export default function PaginationComponent({
           />
         </PaginationItem>
         {pagesList.map((item) => (
-          <PaginationItem>
+          <PaginationItem key={item}>
             <PaginationLink
               isActive={item === pageIndex ? true : false}
               onClick={() => {
@@ -59,9 +59,7 @@ export default function PaginationComponent({
           <PaginationNext
             onClick={() => {
               const newPage = pageIndex + 1;
-              console.log(newPage);
               if (newPage <= 10 && newPage <= pages) {
-                console.log("setting page", newPage, onPageChange);
                 setPageIndex(newPage);
                 if (onPageChange) onPageChange(newPage);
               }
