@@ -23,7 +23,6 @@ export default async function Page({
     `https://api.themoviedb.org/3/movie/${id}/credits`,
   );
 
-  console.log(movieData);
   if (!movieData.success && !movieData.id) {
     return <div>Something went wrong!</div>;
   }
@@ -32,7 +31,7 @@ export default async function Page({
   const isCreditDataFetchedSuccessfully = creditData.id;
 
   return (
-    <main className="p-2">
+    <div className="p-2">
       <section className="lg:grid lg:grid-cols-2 mb-4">
         <div>
           <Image
@@ -126,6 +125,6 @@ export default async function Page({
           </Tabs>
         </section>
       )}
-    </main>
+    </div>
   );
 }
