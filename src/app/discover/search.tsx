@@ -3,7 +3,7 @@
 import { Input } from "@/components";
 import MovieList from "./movielist";
 import { Suspense, useState } from "react";
-import MoviesSkeleton from "./moviesSkeleton";
+import { MoviesSkeleton } from "@/components";
 import useDebounce from "@/lib/useDebounce";
 
 export default function Search() {
