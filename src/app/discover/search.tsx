@@ -2,18 +2,25 @@
 
 import { Input } from "@/components";
 import MovieList from "./movielist";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { MoviesSkeleton } from "@/components";
 import useDebounce from "@/lib/useDebounce";
+import { useSearchParams } from "next/navigation";
 
 export default function Search() {
   const [input, setInput] = useState("");
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
 
   const debouncedSearch = useDebounce(input, 1000);
 
   const url = debouncedSearch
     ? `https://api.themoviedb.org/3/search/movie?query=${debouncedSearch}`
     : null;
+
+  useEffect(() => {
+    setInput(search || "");
+  }, [search]);
 
   return (
     <div className="p-2 lg:p-0">

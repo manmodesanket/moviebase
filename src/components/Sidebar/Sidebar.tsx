@@ -15,9 +15,11 @@ export default function Sidebar({}) {
 
   return (
     <div className="space-y-4 py-4">
-      <h1 className="text-3xl font-bold tracking-tight text-center">
-        Moviebase
-      </h1>
+      <Link href="/">
+        <h1 className="text-3xl font-bold tracking-tight text-center">
+          Moviebase
+        </h1>
+      </Link>
       <div className="px-3 py-2">
         <div className="space-y-1 flex flex-col">
           <Link

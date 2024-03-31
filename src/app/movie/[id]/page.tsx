@@ -54,11 +54,11 @@ export default async function Page({
             ))}
           </ul>
           <div className="mt-4">
-            <h3 className="text-xl">
+            <h3 className="text-xl text-gray-500">
               Rated: {movieData.vote_average.toFixed(2)}
             </h3>
           </div>
-          <p className="mt-4 mb-10">{movieData.overview}</p>
+          <p className="text-gray-500 mt-4 mb-10">{movieData.overview}</p>
         </div>
       </section>
       {isCreditDataFetchedSuccessfully && (
@@ -93,7 +93,7 @@ export default async function Page({
                       height={100}
                     />
                     <div>
-                      <p className="text-center">{person.name}</p>
+                      <p className="text-gray-500 text-center">{person.name}</p>
                     </div>
                   </div>
                 ),
@@ -117,7 +117,7 @@ export default async function Page({
                       width={100}
                       height={100}
                     />
-                    <p className="text-center">{person.name}</p>
+                    <p className="text-gray-500 text-center">{person.name}</p>
                   </div>
                 ),
               )}
