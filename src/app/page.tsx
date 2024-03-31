@@ -3,6 +3,7 @@
 import { Input } from "@/components";
 import { Button } from "@/components/shadcn-ui/button";
 import { options } from "@/lib/utils";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
@@ -67,6 +68,16 @@ export default function Component() {
             </div>
           </div>
         </div>
+        <div className="space-y-2">
+          <div className="flex justify-center gap-4">
+            <Link className="text-xl underline" href="/discover">
+              Discover
+            </Link>
+            <Link className="text-xl underline" href="/trending">
+              Trending
+            </Link>
+          </div>
+        </div>
         <div className="grid items-start gap-6 lg:grid-cols-1 lg:gap-10 w-full">
           <div className="flex flex-col items-center justify-center space-y-2 lg:order-2 lg:space-y-4 lg:mx-0">
             <div className="space-y-2 text-center">
@@ -90,7 +101,9 @@ export default function Component() {
                         {item.overview}
                       </p>
                     </div>
-                    <div className="text-right">{item.vote_average}</div>
+                    <div className="text-right">
+                      {item.vote_average && item.vote_average.toFixed(1)}
+                    </div>
                   </li>
                 ))}
             </ul>
